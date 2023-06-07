@@ -17,6 +17,7 @@
                 <!-- Pestañas de navegación -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#vehiculos" data-toggle="tab">Vehículos</a></li>
+                    <li><a href="#tipo-vehiculo" data-toggle="tab">Tipo de vehículo</a></li>
                     <li><a href="#marcas" data-toggle="tab">Marcas</a></li>
                     <li><a href="#colores" data-toggle="tab">Colores</a></li>
                     <li><a href="#modelos" data-toggle="tab">Modelos</a></li>
@@ -39,22 +40,96 @@
                             <thead>
                                 <tr>
                                     <th class="idSize">#</th>
-                                    <th>placa</th>
-                                    <th>Tipo Vehículo</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Color</th>
-                                    <th>Año</th>
-                                    <th>Acciones</th>
+                                    <th class="sizeV">placa</th>
+                                    <th class="sizeV">Tipo Vehículo</th>
+                                    <th class="sizeV">Marca</th>
+                                    <th class="sizeV">Modelo</th>
+                                    <th class="sizeV">Color</th>
+                                    <th class="sizeV">Año</th>
+                                    <th class="sizeV">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                            <?php
+                                $item = null;
+                                $valor = null;
+                                $vehiculos = vehiculosC::ctrMostarVehiculos($item, $valor);
+                                //var_dump($vehiculos);
+                                foreach ($vehiculos as $key => $value){
+                                    echo '<tr>
+                                        <td>'.($key+1).'</td>
+                                        <td>'.$value['placa'].'</td>';
+                                    $item = "id_tipo_vehiculo";
+                                    $valor = $value["tipo_vehiculo_id"];
+                                    $tipoVehiculo = vehiculosC::ctrMostrarTipoVehiculo($item, $valor);
+                                    //var_dump($tipoVehiculo);
+                                    echo '<td>'.$tipoVehiculo["nombre_tipo_vehiculo"].'</td>';
+                                    $item = "id_marca_vehiculo";
+                                    $valor = $value["marca_vehiculo_id"];
+                                    $marcaVehiculo = vehiculosC::ctrMostrarMarcaVehiculo($item, $valor);
+                                    echo '<td>'.$marcaVehiculo["nombre_marca"].'</td>';
+                                    $item = "id_modelo";
+                                    $valor = $value["modelo_id"];
+                                    $modeloVehiculo = vehiculosC::ctrMostrarModeloVehiculo($item, $valor);
+                                    echo '<td>'.$modeloVehiculo["nombre_modelo"].'</td>';
+                                    $item = "id_color";
+                                    $valor = $value["color_id"];
+                                    $colorVehiculo = colorC::ctrMostarColor($item, $valor);
+                                    echo '<td>'.$colorVehiculo["nombre_color"].'</td>
+                                    <td>'.$value['anio'].'</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                    </tr>';
+                                }
+                            ?>
                             </tbody>
                         </table>
                     </div>
 
                     <!-- Pestañas para las tablas relacionadas -->
+                    <div class="tab-pane" id="tipo-vehiculo">
+                        <!-- Contenido de la tabla de marcas -->
+                        <form method="post" class="form-inline">
+                            <div class="form-group">
+                                <input type="text" name="tipoVehiculo" class="form-control" placeholder="Nuevo Tipo de vehículo" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Crear Tipo de vehículo</button>
+                        </form>
+                        <br>
+                        <table class="table table-bordered table-striped dt-responsive tablas">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $item = null;
+                            $valor = null;
+                            $tiposVehiculo = vehiculosC::ctrMostrarTipoVehiculo($item, $valor);
+                            foreach ($tiposVehiculo as $key => $value){
+                                echo '<tr>
+                                    <td>'.($key+1).'</td>
+                                    <td>'.$value['nombre_tipo_vehiculo'].'</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>';
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div class="tab-pane" id="marcas">
                         <!-- Contenido de la tabla de marcas -->
                         <form method="post" class="form-inline">
@@ -64,7 +139,7 @@
                             <button type="submit" class="btn btn-primary">Crear Marca</button>
                         </form>
                         <br>
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped dt-responsive tablas">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -73,9 +148,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                            </tr>
+                            <?php
+                            $item = null;
+                            $valor = null;
+                            $marcasVehiculo = vehiculosC::ctrMostrarMarcaVehiculo($item, $valor);
+                            foreach ($marcasVehiculo as $key => $value){
+                                echo '<tr>
+                                    <td>'.($key+1).'</td>
+                                    <td>'.$value['nombre_marca'].'</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>';
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>
@@ -97,9 +186,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                            </tr>
+                            <?php
+                            $item = null;
+                            $valor = null;
+                            $coloresVehiculo = colorC::ctrMostarColor($item, $valor);
+                            foreach ($coloresVehiculo as $key => $value){
+                                echo '<tr>
+                                    <td>'.($key+1).'</td>
+                                    <td>'.$value['nombre_color'].'</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>';
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>
@@ -121,9 +224,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                            </tr>
+                            <?php
+                            $item = null;
+                            $valor = null;
+                            $modelosVehiculo = vehiculosC::ctrMostrarModeloVehiculo($item, $valor);
+                            foreach ($modelosVehiculo as $key => $value){
+                                echo '<tr>
+                                    <td>'.($key+1).'</td>
+                                    <td>'.$value['nombre_modelo'].'</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>';
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>
