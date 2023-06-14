@@ -47,6 +47,8 @@
     <script src="vistas/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="vistas/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
     <script src="vistas/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- AdminLTE for demo purposes
     <script src="vistas/dist/js/demo.js"></script>-->
 </head>
@@ -98,5 +100,6 @@
 <!-- ./wrapper -->
 
 <script src="vistas/js/plantilla.js"></script>
+<script src="vistas/js/vehiculos.js"></script>
 </body>
 </html>

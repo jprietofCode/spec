@@ -36,7 +36,7 @@
                         <!-- Botón para agregar vehículo -->
                         <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddVehiculo">Agregar vehículo</button>
                         <br><br>
-                        <table class="table table-bordered table-striped dt-responsive tablas">
+                        <table class="table table-bordered table-striped dt-responsive tablas tablaVehiculos">
                             <thead>
                                 <tr>
                                     <th class="idSize">#</th>
@@ -79,7 +79,7 @@
                                     <td>'.$value['anio'].'</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-warning btn_editVehiculo" data-toggle="modal" data-target="#EditarVehiculo"><i class="fa fa-pencil"></i></button>
                                             <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
@@ -260,7 +260,7 @@ MODAL WINDOWS - VEHICLE
 <div id="modalAddVehiculo" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form role="form" action="post" >
+            <form role="form" method="post">
                 <!--=====================================
                                MODAL HEADER
                  ======================================-->
@@ -284,10 +284,16 @@ MODAL WINDOWS - VEHICLE
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-truck"></i></span>
-                                <select class="form-control input-lg" name="tipoVehiculo" id="">
+                                <select class="form-control input-lg" name="tipoVehiculo" id="" required>
                                     <option value="">Seleccionar tipo de vehículo</option>
-                                    <option value="motosicleta">Motosicleta</option>
-                                    <option value="camin">Camion</option>
+                                    <?php
+                                    $item = null;
+                                    $valor = null;
+                                    $tipoVehiculo = vehiculosC::ctrMostrarTipoVehiculo($item, $valor);
+                                    foreach ($tipoVehiculo as $key => $value) {
+                                        echo '<option value="'.$value["id_tipo_vehiculo"].'">'.$value["nombre_tipo_vehiculo"].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -297,8 +303,14 @@ MODAL WINDOWS - VEHICLE
                                 <span class="input-group-addon"><i class="fa fa-car"></i></span>
                                 <select class="form-control input-lg" name="marcaVehiculo" id="">
                                     <option value="">Seleccione marca de vehículo</option>
-                                    <option value="toyota">Toyata</option>
-                                    <option value="mazda">Mazda</option>
+                                    <?php
+                                    $item = null;
+                                    $valor = null;
+                                    $marcasVehiculo = vehiculosC::ctrMostrarMarcaVehiculo($item, $valor);
+                                    foreach ($marcasVehiculo as $key => $value) {
+                                        echo '<option value="'.$value["id_marca_vehiculo"].'">'.$value["nombre_marca"].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -308,8 +320,14 @@ MODAL WINDOWS - VEHICLE
                                 <span class="input-group-addon"><i class="fa fa-car"></i></span>
                                 <select class="form-control input-lg" name="modeloVehiculo" id="">
                                     <option value="">Seleccionar modelo de vehículo</option>
-                                    <option value="corollla">Corolla</option>
-                                    <option value="m4">m4</option>
+                                    <?php
+                                    $item = null;
+                                    $valor = null;
+                                    $modelosVehiculo = vehiculosC::ctrMostrarModeloVehiculo($item, $valor);
+                                    foreach ($modelosVehiculo as $key => $value) {
+                                        echo '<option value="'.$value["id_modelo"].'">'.$value["nombre_modelo"].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -319,8 +337,14 @@ MODAL WINDOWS - VEHICLE
                                 <span class="input-group-addon"><i class="fa fa-car"></i></span>
                                 <select class="form-control input-lg" name="colorVehiculo" id="">
                                     <option value="">Seleccionar color de vehículo</option>
-                                    <option value="Rojo">Rojo</option>
-                                    <option value="Negro">Negro</option>
+                                    <?php
+                                    $item = null;
+                                    $valor = null;
+                                    $coloresVehiculo = colorC::ctrMostarColor($item, $valor);
+                                    foreach ($coloresVehiculo as $key => $value) {
+                                        echo '<option value="'.$value["id_color"].'">'.$value["nombre_color"].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -340,11 +364,99 @@ MODAL WINDOWS - VEHICLE
                     <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Salir</button>
                     <button class="btn btn-primary" type="submit">Guardar Vehículo</button>
                 </div>
-                <?php
-                    $crearVehiculo = new vehiculosC();
-                    $crearVehiculo -> ctrCrearVehiculo();
-                ?>
             </form>
+            <?php
+            $crearVehiculo = new vehiculosC();
+            $crearVehiculo -> ctrCrearVehiculo();
+            ?>
+        </div>
+    </div>
+</div>
+
+<!--=====================================
+MODAL EDIT - VEHICLE
+======================================-->
+<div id="EditarVehiculo" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form role="form" method="post">
+                <!--=====================================
+                               MODAL HEADER
+                 ======================================-->
+                <div class="modal-header bg-head-modal">
+                    <button class="close" type="button" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Vehículo</h4>
+                </div>
+                <!--=====================================
+                               MODAL BODY
+                 ======================================-->
+                <div class="modal-body">
+                    <div class="box-body">
+                        <!-- plaque -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <input type="text" class="form-control input-lg" name="edit_placa" required>
+                            </div>
+                        </div>
+                        <!-- vehicle type-->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-truck"></i></span>
+                                <select class="form-control input-lg" name="edit_tipoVehiculo" id="" required>
+                                    <option id="edit_tipoVehiculo"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- vehicle brand-->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <select class="form-control input-lg" name="edit_marcaVehiculo" id="">
+                                    <option id="edit_marcaVehiculo"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- vehicle model-->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <select class="form-control input-lg" name="edit_modeloVehiculo" id="">
+                                    <option id="edit_modeloVehiculo">Seleccionar modelo de vehículo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- vehicle color-->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <select class="form-control input-lg" name="edit_colorVehiculo" id="">
+                                    <option id="edit_colorVehiculo">Seleccionar color de vehículo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- vehicle year -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <input type="text" class="form-control input-lg" id="edit_yearVehiculo" name="edit_yearVehiculo" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--=====================================
+                               MODAL FOOTER
+                 ======================================-->
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Salir</button>
+                    <button class="btn btn-primary" type="submit">Actualizar Vehículo</button>
+                </div>
+            </form>
+            <?php
+            /*
+            $editarVehiculo = new vehiculosC();
+            $editarVehiculo -> ctrEditarVehiculo();*/
+            ?>
         </div>
     </div>
 </div>
