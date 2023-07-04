@@ -1,3 +1,4 @@
+
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
@@ -13,14 +14,34 @@
     <!-- Main content -->
     <section class="content">
         <div class="box">
+            <?php
+            // Obtener el valor del parámetro "tab" si está presente en la URL
+            $tabActiva = isset($_GET['tab']) ? $_GET['tab'] : 'vehiculos';
+
+            // Validar que el valor de "tab" sea uno de los permitidos
+            $pestanasPermitidas = array('vehiculos', 'tipo-vehiculo', 'marcas', 'colores', 'modelos');
+            if (!in_array($tabActiva, $pestanasPermitidas)) {
+                $tabActiva = 'vehiculos'; // Establecer "vehiculos" como valor por defecto si "tab" no es válido
+            }
+            var_dump($tabActiva);
+            // Función para aplicar la clase "active" a la pestaña actual
+            function pestanaActiva($pestaña, $tabActiva)
+            {
+                $respuesta = "";
+                if ($tabActiva === $pestaña) {
+                    $respuesta = 'active';
+                }
+                return $respuesta;
+            }
+            ?>
             <div class="box-header with-border">
                 <!-- Pestañas de navegación -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#vehiculos" data-toggle="tab">Vehículos</a></li>
-                    <li><a href="#tipo-vehiculo" data-toggle="tab">Tipo de vehículo</a></li>
-                    <li><a href="#marcas" data-toggle="tab">Marcas</a></li>
-                    <li><a href="#colores" data-toggle="tab">Colores</a></li>
-                    <li><a href="#modelos" data-toggle="tab">Modelos</a></li>
+                    <li class="<?php echo pestanaActiva('vehiculos', $tabActiva); ?>"><a href="#vehiculos" data-toggle="tab">Vehículos</a></li>
+                    <li class="<?php echo pestanaActiva('tipo-vehiculo', $tabActiva); ?>"><a href="#tipo-vehiculo" data-toggle="tab">Tipo de vehículo</a></li>
+                    <li class="<?php echo pestanaActiva('marcas', $tabActiva); ?>"><a href="#marcas" data-toggle="tab">Marcas</a></li>
+                    <li class="<?php echo pestanaActiva('colores', $tabActiva); ?>"><a href="#colores" data-toggle="tab">Colores</a></li>
+                    <li class="<?php echo pestanaActiva('modelos', $tabActiva); ?>"><a href="#modelos" data-toggle="tab">Modelos</a></li>
                     <!-- Otras pestañas para las tablas relacionadas -->
                 </ul>
                 <br>
@@ -32,7 +53,7 @@
                 <!-- Contenido de las pestañas -->
                 <div class="tab-content">
                     <!-- Pestaña de vehículos -->
-                    <div class="tab-pane active" id="vehiculos">
+                    <div class="tab-pane <?php echo pestanaActiva('vehiculos', $tabActiva); ?>" id="vehiculos">
                         <!-- Botón para agregar vehículo -->
                         <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddVehiculo">Agregar vehículo</button>
                         <br><br>
@@ -79,8 +100,9 @@
                                     <td>'.$value['anio'].'</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button class="btn btn-warning btn_editVehiculo" data-toggle="modal" data-target="#EditarVehiculo"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-warning btnEditarVehiculo" idVehiculo="'.$value["id_vehiculo"].'" data-toggle="modal" data-target="#EditarVehiculo"><i class="fa fa-pencil"></i></button>
+                                            
+                                            <button class="btn btn-danger btnEliminarVehiculo" idVehiculo="'.$value["id_vehiculo"].'"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                     </tr>';
@@ -91,14 +113,19 @@
                     </div>
 
                     <!-- Pestañas para las tablas relacionadas -->
-                    <div class="tab-pane" id="tipo-vehiculo">
-                        <!-- Contenido de la tabla de marcas -->
+
+                    <div class="tab-pane <?php echo pestanaActiva('tipo-vehiculo', $tabActiva); ?>" id="tipo-vehiculo">
+                        <!-- Contenido de la tabla de Tipo Vehiculo-->
                         <form method="post" class="form-inline">
                             <div class="form-group">
                                 <input type="text" name="tipoVehiculo" class="form-control" placeholder="Nuevo Tipo de vehículo" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Crear Tipo de vehículo</button>
                         </form>
+                        <?php
+                        $crearTipoVehiculo = new vehiculosC();
+                        $crearTipoVehiculo -> ctrCrearTipoVehiculo();
+                        ?>
                         <br>
                         <table class="table table-bordered table-striped dt-responsive tablas">
                             <thead>
@@ -130,7 +157,7 @@
                         </table>
                     </div>
 
-                    <div class="tab-pane" id="marcas">
+                    <div class="tab-pane <?php echo pestanaActiva('marcas', $tabActiva); ?>" id="marcas">
                         <!-- Contenido de la tabla de marcas -->
                         <form method="post" class="form-inline">
                             <div class="form-group">
@@ -138,6 +165,10 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Crear Marca</button>
                         </form>
+                        <?php
+                        $crearMarcaVehiculo = new vehiculosC();
+                        $crearMarcaVehiculo -> ctrCrearMarcaVehiculo();
+                        ?>
                         <br>
                         <table class="table table-bordered table-striped dt-responsive tablas">
                             <thead>
@@ -168,14 +199,18 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="tab-pane" id="colores">
+                    <div class="tab-pane <?php echo pestanaActiva('colores', $tabActiva); ?>" id="colores">
                         <!-- Contenido de la tabla de colores -->
                         <form method="post" class="form-inline">
                             <div class="form-group">
-                                <input type="text" name="colorVehiculo" class="form-control" placeholder="Nuevo color de vehículo" required>
+                                <input type="text" name="newColor" class="form-control" placeholder="Nuevo color de vehículo" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Crear Color</button>
                         </form>
+                        <?php
+                        $crearColorVehiculo = new colorC();
+                        $crearColorVehiculo -> ctrCrearColor();
+                        ?>
                         <br>
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -206,7 +241,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="tab-pane" id="modelos">
+                    <div class="tab-pane <?php echo pestanaActiva('modelos', $tabActiva); ?>" id="modelos">
                         <!-- Contenido de la tabla de modelos -->
                         <form method="post" class="form-inline">
                             <div class="form-group">
@@ -214,6 +249,10 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Crear Modelo</button>
                         </form>
+                        <?php
+                        $crearModeloVehiculo = new vehiculosC();
+                        $crearModeloVehiculo -> ctrCrearModeloVehiculo();
+                        ?>
                         <br>
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -392,11 +431,16 @@ MODAL EDIT - VEHICLE
                  ======================================-->
                 <div class="modal-body">
                     <div class="box-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="hidden" class="form-control input-lg" name="idVehiculo" id="idVehiculo">
+                            </div>
+                        </div>
                         <!-- plaque -->
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-car"></i></span>
-                                <input type="text" class="form-control input-lg" name="edit_placa" required>
+                                <input type="text" class="form-control input-lg" name="edit_placa" id="edit_placa" required>
                             </div>
                         </div>
                         <!-- vehicle type-->
@@ -404,7 +448,15 @@ MODAL EDIT - VEHICLE
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-truck"></i></span>
                                 <select class="form-control input-lg" name="edit_tipoVehiculo" id="" required>
-                                    <option id="edit_tipoVehiculo"></option>
+                                    <option id="edit_tipoVehiculo" selected></option>
+                                    <?php
+                                    $item = null;
+                                    $valor = null;
+                                    $tipoVehiculo = vehiculosC::ctrMostrarTipoVehiculo($item, $valor);
+                                    foreach ($tipoVehiculo as $key => $value) {
+                                        echo '<option value="'.$value["id_tipo_vehiculo"].'">'.$value["nombre_tipo_vehiculo"].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -439,6 +491,7 @@ MODAL EDIT - VEHICLE
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                <label for="edit_yearVehiculo">Año</label>
                                 <input type="text" class="form-control input-lg" id="edit_yearVehiculo" name="edit_yearVehiculo" required>
                             </div>
                         </div>
@@ -453,10 +506,15 @@ MODAL EDIT - VEHICLE
                 </div>
             </form>
             <?php
-            /*
+
             $editarVehiculo = new vehiculosC();
-            $editarVehiculo -> ctrEditarVehiculo();*/
+            $editarVehiculo -> ctrEditarVehiculo();
             ?>
         </div>
     </div>
 </div>
+
+<?php
+    $eliminarVehiculo = new vehiculosC();
+    $eliminarVehiculo -> ctrEliminarVehiculo();
+?>

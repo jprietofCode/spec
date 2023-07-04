@@ -49,8 +49,8 @@
     <script src="vistas/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
     <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- AdminLTE for demo purposes
-    <script src="vistas/dist/js/demo.js"></script>-->
+   <!-- AdminLTE for demo purposes
+   <script src="vistas/dist/js/demo.js"></script>-->
 </head>
 <!--=====================================
  CONTENT
