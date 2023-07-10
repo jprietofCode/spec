@@ -112,7 +112,9 @@
                         </table>
                     </div>
 
-                    <!-- Pestañas para las tablas relacionadas -->
+                    <!-- ============================================
+                            Pestañas para las tablas relacionadas
+                    ===============================================-->
 
                     <div class="tab-pane <?php echo pestanaActiva('tipo-vehiculo', $tabActiva); ?>" id="tipo-vehiculo">
                         <!-- Contenido de la tabla de Tipo Vehiculo-->
@@ -127,7 +129,7 @@
                         $crearTipoVehiculo -> ctrCrearTipoVehiculo();
                         ?>
                         <br>
-                        <table class="table table-bordered table-striped dt-responsive tablas">
+                        <table class="table table-bordered table-striped dt-responsive tablas tablaTipoVehicle">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -146,8 +148,8 @@
                                     <td>'.$value['nombre_tipo_vehiculo'].'</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-warning btnEditTypeVehicle" idTypeVehicle="'.$value["id_tipo_vehiculo"].'" data-toggle="modal" data-target="#EditTVehicle"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger btnDeleteTypeVehicle" idTypeVehicle="'.$value["id_tipo_vehiculo"].'"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>';
@@ -170,7 +172,7 @@
                         $crearMarcaVehiculo -> ctrCrearMarcaVehiculo();
                         ?>
                         <br>
-                        <table class="table table-bordered table-striped dt-responsive tablas">
+                        <table class="table table-bordered table-striped dt-responsive tablas tablaMarcaVehicle">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -189,8 +191,8 @@
                                     <td>'.$value['nombre_marca'].'</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-warning btnEditMarcaVehicle" idMarcaVehicle="'.$value["id_marca_vehiculo"].'" data-toggle="modal" data-target="#EditMarcaVehicle"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger btnDeleteMarcaVehicle" idMarcaVehicle="'.$value["id_marca_vehiculo"].'"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>';
@@ -212,7 +214,7 @@
                         $crearColorVehiculo -> ctrCrearColor();
                         ?>
                         <br>
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped dt-responsive tablas tablaColorVehicle">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -231,8 +233,8 @@
                                     <td>'.$value['nombre_color'].'</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-warning btnEditColorVehicle" idColorVehicle="'.$value["id_color"].'" data-toggle="modal" data-target="#EditColorVehicle"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger btnDeleteColorVehicle" idColorVehicle="'.$value["id_color"].'"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>';
@@ -254,7 +256,7 @@
                         $crearModeloVehiculo -> ctrCrearModeloVehiculo();
                         ?>
                         <br>
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped dt-responsive tablas tablaModelVehicle">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -273,8 +275,8 @@
                                     <td>'.$value['nombre_modelo'].'</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-warning btnEditModelVehicle" idModelVehicle="'.$value["id_modelo"].'" data-toggle="modal" data-target="#EditModelVehicle"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger btnDeleteModelVehicle" idModelVehicle="'.$value["id_modelo"].'"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>';
@@ -413,7 +415,7 @@ MODAL WINDOWS - VEHICLE
 </div>
 
 <!--=====================================
-MODAL EDIT - VEHICLE
+ 1 MODAL EDIT - VEHICLE
 ======================================-->
 <div id="EditarVehiculo" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
@@ -517,4 +519,218 @@ MODAL EDIT - VEHICLE
 <?php
     $eliminarVehiculo = new vehiculosC();
     $eliminarVehiculo -> ctrEliminarVehiculo();
+?>
+<!--============================================
+               2  EDIT TYPE VEHICLE
+===============================================-->
+<div id="EditTVehicle" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form role="form" method="post">
+                <!--=====================================
+                               MODAL HEADER
+                 ======================================-->
+                <div class="modal-header bg-head-modal">
+                    <button class="close" type="button" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Tipo Vehículo</h4>
+                </div>
+                <!--=====================================
+                               MODAL BODY
+                 ======================================-->
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="hidden" class="form-control input-lg" name="id_TipoVehiculo" id="id_TipoVehiculo">
+                            </div>
+                        </div>
+                        <!-- Type Vehicle -->
+                        <div class="form-group">
+                            <div class="input-group-lg">
+                                <label for="EditTipoVehicle">Tipo de Vehículo</label>
+                                <input type="text" name="EditTipoVehicle" id="EditTipoVehicle" class="form-control" placeholder="Tipo de vehículo" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--=====================================
+                               MODAL FOOTER
+                 ======================================-->
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Salir</button>
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+            <?php
+
+            $editarTipoVehiculo = new vehiculosC();
+            $editarTipoVehiculo -> ctrEditarTipoVehiculo();
+            ?>
+        </div>
+    </div>
+</div>
+<?php
+$eliminarTipoVehiculo = new vehiculosC();
+$eliminarTipoVehiculo -> ctrEliminarTipoVehiculo();
+?>
+<!--============================================
+          3  EDIT MARCA VEHICLE
+===============================================-->
+<div id="EditMarcaVehicle" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form role="form" method="post">
+                <!--=====================================
+                               MODAL HEADER
+                 ======================================-->
+                <div class="modal-header bg-head-modal">
+                    <button class="close" type="button" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Marca Vehículo</h4>
+                </div>
+                <!--=====================================
+                               MODAL BODY
+                 ======================================-->
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="hidden" class="form-control input-lg" name="id_MarcaVehiculo" id="id_MarcaVehiculo">
+                            </div>
+                        </div>
+                        <!-- Brand Vehicle -->
+                        <div class="form-group">
+                            <div class="input-group-lg">
+                                <label for="EditMarcaVehiculo">Marca de Vehículo</label>
+                                <input type="text" name="EditMarcaVehiculo" id="EditMarcaVehiculo" class="form-control" placeholder="Marca de vehículo" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--=====================================
+                               MODAL FOOTER
+                 ======================================-->
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Salir</button>
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+            <?php
+
+            $editarMarcaVehiculo = new vehiculosC();
+            $editarMarcaVehiculo -> ctrEditarMarcaVehiculo();
+            ?>
+        </div>
+    </div>
+</div>
+<?php
+$eliminarMarcaVehiculo = new vehiculosC();
+$eliminarMarcaVehiculo -> ctrEliminarMarcaVehiculo();
+?>
+
+<!--============================================
+                4 EDIT COLOR VEHICLE
+===============================================-->
+<div id="EditColorVehicle" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form role="form" method="post">
+                <!--=====================================
+                               MODAL HEADER
+                 ======================================-->
+                <div class="modal-header bg-head-modal">
+                    <button class="close" type="button" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Color Vehículo</h4>
+                </div>
+                <!--=====================================
+                               MODAL BODY
+                 ======================================-->
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="hidden" class="form-control input-lg" name="id_Color" id="id_Color">
+                            </div>
+                        </div>
+                        <!-- Color Vehicle -->
+                        <div class="form-group">
+                            <div class="input-group-lg">
+                                <label for="EditColor">Color de Vehículo</label>
+                                <input type="text" name="EditColor" id="EditColor" class="form-control" placeholder="Color de vehículo" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--=====================================
+                               MODAL FOOTER
+                 ======================================-->
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Salir</button>
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+            <?php
+
+            $editarColorVehiculo = new colorC();
+            $editarColorVehiculo -> ctrEditarColor();
+            ?>
+        </div>
+    </div>
+</div>
+<?php
+$eliminarColorVehiculo = new colorC();
+$eliminarColorVehiculo -> ctrEliminarColor();
+?>
+
+<!--============================================
+              5   EDIT MODEL VEHICLE
+===============================================-->
+<div id="EditModelVehicle" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form role="form" method="post">
+                <!--=====================================
+                               MODAL HEADER
+                 ======================================-->
+                <div class="modal-header bg-head-modal">
+                    <button class="close" type="button" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Modelo Vehículo</h4>
+                </div>
+                <!--=====================================
+                               MODAL BODY
+                 ======================================-->
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="hidden" class="form-control input-lg" name="id_ModeloVehiculo" id="id_ModeloVehiculo">
+                            </div>
+                        </div>
+                        <!-- Type Vehicle -->
+                        <div class="form-group">
+                            <div class="input-group-lg">
+                                <label for="EditModeloVehicle">Modelo de Vehículo</label>
+                                <input type="text" name="EditModeloVehicle" id="EditModeloVehicle" class="form-control" placeholder="Modelo de vehículo" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--=====================================
+                               MODAL FOOTER
+                 ======================================-->
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Salir</button>
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+            <?php
+
+            $editarModeloVehiculo = new vehiculosC();
+            $editarModeloVehiculo -> ctrEditarModeloVehiculo();
+            ?>
+        </div>
+    </div>
+</div>
+<?php
+$eliminarModeloVehiculo = new vehiculosC();
+$eliminarModeloVehiculo -> ctrEliminarModeloVehiculo();
 ?>

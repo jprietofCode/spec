@@ -36,4 +36,33 @@ class coloresM{
         $stmt = null;
         return $resultado;
     }
+    // Edit color
+    static public function mdlEditarColor($tabla, $datos){
+        $respuesta = "";
+        $stmt = ConexionDB::conectar()->prepare("UPDATE $tabla SET nombre_color = :nombreColor WHERE id_color = :idColor");
+
+        $stmt->bindParam(":idColor", $datos["id_Color"], PDO::PARAM_INT);
+        $stmt->bindParam(":nombreColor", $datos["nameColor"], PDO::PARAM_STR);
+        if($stmt->execute()){
+            $respuesta = "ok";
+        }else{
+            $respuesta = "error";
+        }
+        $stmt = null;
+        return $respuesta;
+    }
+
+    // DELETE COLOR
+    static public function mdlEliminarColor($tabla, $datos){
+        $resultado = "";
+        $stmt = ConexionDB::conectar()->prepare("DELETE FROM $tabla WHERE id_color = :id");
+        $stmt -> bindParam(":id", $datos, PDO::PARAM_INT);
+        if($stmt -> execute()){
+            $resultado = "ok";
+        }else{
+            $resultado = "error";
+        }
+        $stmt = null;
+        return $resultado;
+    }
 }

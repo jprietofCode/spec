@@ -79,7 +79,7 @@ class vehiculosM{
     /*-------------------------------
     *          TYPE VEHICLE
     *-------------------------------*/
-    // Crar tipo de vehiculo
+    // Create tipo de vehiculo
     static public function mdlCrearTipoVehiculo($tabla, $dato){
         $respuesta = "";
         $stmt = ConexionDB::conectar()->prepare("INSERT INTO $tabla (nombre_tipo_vehiculo) VALUES (:nombreTipoVehiculo)");
@@ -92,6 +92,21 @@ class vehiculosM{
         $stmt = null;
         return $respuesta;
         
+    }
+    // Edit type vehicle
+    static public function mdlEditarTipoVehiculo($tabla, $datos){
+        $respuesta = "";
+        $stmt = ConexionDB::conectar()->prepare("UPDATE $tabla SET nombre_tipo_vehiculo = :nombreTipoVehiculo WHERE id_tipo_vehiculo = :idTipoVehiculo");
+
+        $stmt->bindParam(":idTipoVehiculo", $datos["id_TipoVehiculo"], PDO::PARAM_INT);
+        $stmt->bindParam(":nombreTipoVehiculo", $datos["nameTipo_vehiculo"], PDO::PARAM_STR);
+        if($stmt->execute()){
+            $respuesta = "ok";
+        }else{
+            $respuesta = "error";
+        }
+        $stmt = null;
+        return $respuesta;
     }
     // Mostrar Tipó deVehiculo
     static public function mdlMostrarTipoVehiculo($tabla, $item, $valor){
@@ -113,10 +128,23 @@ class vehiculosM{
         }
         return $resultado;
     }
+    // Eleminar tipo vehiculo
+    static public function mdlEliminarTipoVehiculo($tabla, $datos){
+        $resultado = "";
+        $stmt = ConexionDB::conectar()->prepare("DELETE FROM $tabla WHERE id_tipo_vehiculo = :id");
+        $stmt -> bindParam(":id", $datos, PDO::PARAM_INT);
+        if($stmt -> execute()){
+            $resultado = "ok";
+        }else{
+            $resultado = "error";
+        }
+        $stmt = null;
+        return $resultado;
+    }
     /*-------------------------------
    *           BRAND VEHICLE
    *---------------------------------*/
-    //Crear nueva marca de vehiculo
+    //Create new brand vehicle
     static public function mdlCrearMarcaVehiculo($tabla, $dato){
         $respuesta = "";
         $stmt = ConexionDB::conectar()->prepare("INSERT INTO $tabla (nombre_marca) VALUES (:nombreMarcaVehiculo)");
@@ -130,6 +158,22 @@ class vehiculosM{
         return $respuesta;
 
     }
+    // Edit Brand vehicle
+    static public function mdlEditarMarcaVehiculo($tabla, $datos){
+        $respuesta = "";
+        $stmt = ConexionDB::conectar()->prepare("UPDATE $tabla SET nombre_marca = :nombreMarcaVehiculo WHERE id_marca_vehiculo = :idMarcaVehiculo");
+
+        $stmt->bindParam(":idMarcaVehiculo", $datos["id_MarcaVehiculo"], PDO::PARAM_INT);
+        $stmt->bindParam(":nombreMarcaVehiculo", $datos["nameMarca_vehiculo"], PDO::PARAM_STR);
+        if($stmt->execute()){
+            $respuesta = "ok";
+        }else{
+            $respuesta = "error";
+        }
+        $stmt = null;
+        return $respuesta;
+    }
+
     //Mostar marcas de vehiculo
     static public function mdlMostrarMarcaVehiculo($tabla, $item, $valor){
         $resultado="";
@@ -150,6 +194,19 @@ class vehiculosM{
         }
         return $resultado;
     }
+    // ------- Eleminar Marca vehiculo -------
+    static public function mdlEliminarMarcaVehiculo($tabla, $datos){
+        $resultado = "";
+        $stmt = ConexionDB::conectar()->prepare("DELETE FROM $tabla WHERE id_marca_vehiculo = :id");
+        $stmt -> bindParam(":id", $datos, PDO::PARAM_INT);
+        if($stmt -> execute()){
+            $resultado = "ok";
+        }else{
+            $resultado = "error";
+        }
+        $stmt = null;
+        return $resultado;
+    }
 
     /*--------------------------
    *        MODEL VEHICLE
@@ -167,6 +224,21 @@ class vehiculosM{
         $stmt = null;
         return $respuesta;
 
+    }
+    // Edit Model vehicle
+    static public function mdlEditarModeloVehiculo($tabla, $datos){
+        $respuesta = "";
+        $stmt = ConexionDB::conectar()->prepare("UPDATE $tabla SET nombre_modelo = :nombreModeloVehiculo WHERE id_modelo = :idModeloVehiculo");
+
+        $stmt->bindParam(":idModeloVehiculo", $datos["id_ModeloVehiculo"], PDO::PARAM_INT);
+        $stmt->bindParam(":nombreModeloVehiculo", $datos["nameModelo_vehiculo"], PDO::PARAM_STR);
+        if($stmt->execute()){
+            $respuesta = "ok";
+        }else{
+            $respuesta = "error";
+        }
+        $stmt = null;
+        return $respuesta;
     }
     // Mostar Modelo Vehiculo
     static public function mdlMostrarModeloVehiculo($tabla, $item, $valor){
@@ -186,6 +258,20 @@ class vehiculosM{
             $stmt = null;
 
         }
+        return $resultado;
+    }
+
+    // ------- Delete Model Vehicle -------
+    static public function mdlEliminarModeloVehiculo($tabla, $datos){
+        $resultado = "";
+        $stmt = ConexionDB::conectar()->prepare("DELETE FROM $tabla WHERE id_modelo = :id");
+        $stmt -> bindParam(":id", $datos, PDO::PARAM_INT);
+        if($stmt -> execute()){
+            $resultado = "ok";
+        }else{
+            $resultado = "error";
+        }
+        $stmt = null;
         return $resultado;
     }
 }

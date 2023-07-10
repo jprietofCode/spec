@@ -1,5 +1,5 @@
 /*
-*   EDITAR PRODUCTO
+*   EDITAR VEHÍCULO
 * */
 
 $(".tablaVehiculos").on("click", ".btnEditarVehiculo", function (){
@@ -142,3 +142,236 @@ $(".tablaVehiculos").on("click", ".btnEliminarVehiculo", function (){
         });
 });
 
+/*============================================
+                 EDIT TYPE VEHICLE
+===============================================*/
+$(".tablaTipoVehicle").on("click", ".btnEditTypeVehicle", function (){
+    var idTipoVehiculo = $(this).attr("idTypeVehicle");
+    console.log("idTipoVehiculo", idTipoVehiculo);
+    var datos = new FormData();
+    datos.append("idTipoVehiculo", idTipoVehiculo);
+    $.ajax({
+        url: "ajax/vehiculosAjax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (data){
+            $("#id_TipoVehiculo").val(data["id_tipo_vehiculo"]);
+            $("#EditTipoVehicle").val(data["nombre_tipo_vehiculo"]);
+        }
+    });
+});
+/* --------------------------
+        DELETE TYPE VEHICLE
+----------------------------*/
+$(".tablaTipoVehicle").on("click", ".btnDeleteTypeVehicle", function (){
+    var idTipoVehiculo = $(this).attr("idTypeVehicle");
+    swal({
+        title: "Esta seguro que lo desea borrar?",
+        text: "Si no está seguro puede cancelar la acción",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Cancelar",
+                value: null,
+                visible: true,
+                className: "",
+                closeModal: true,
+            },
+            confirm: {
+                text: "Eliminar",
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: true
+            }
+        },
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location = "index.php?url=vehiculos&idTipoVehiculo="+idTipoVehiculo;
+            } else {
+                swal("Cancelaste la acción!");
+            }
+        });
+});
+
+/*============================================
+                 EDIT BRAND VEHICLE
+===============================================*/
+$(".tablaMarcaVehicle").on("click", ".btnEditMarcaVehicle", function (){
+    var idMarcaVehiculo = $(this).attr("idMarcaVehicle");
+    console.log("idMarcaVehiculo", idMarcaVehiculo);
+    var datos = new FormData();
+    datos.append("idMarcaVehiculo", idMarcaVehiculo);
+    $.ajax({
+        url: "ajax/vehiculosAjax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (data){
+            console.log(data.nombre_marca);
+            $("#id_MarcaVehiculo").val(data["id_marca_vehiculo"]);
+            $("#EditMarcaVehiculo").val(data["nombre_marca"]);
+        }
+    });
+});
+/*============================================
+                 DELETE BRAND VEHICLE
+===============================================*/
+$(".tablaMarcaVehicle").on("click", ".btnDeleteMarcaVehicle", function (){
+    var idMarcaVehiculo = $(this).attr("idMarcaVehicle");
+    swal({
+        title: "Esta seguro que lo desea borrar?",
+        text: "Si no está seguro puede cancelar la acción",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Cancelar",
+                value: null,
+                visible: true,
+                className: "",
+                closeModal: true,
+            },
+            confirm: {
+                text: "Eliminar",
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: true
+            }
+        },
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location = "index.php?url=vehiculos&idMarcaVehiculo="+idMarcaVehiculo;
+            } else {
+                swal("Cancelaste la acción!");
+            }
+        });
+});
+
+/*============================================
+                 EDIT COLOR VEHICLE
+===============================================*/
+$(".tablaColorVehicle").on("click", ".btnEditColorVehicle", function (){
+    var idColorVehiculo = $(this).attr("idColorVehicle");
+    console.log("idColorVehiculo", idColorVehiculo);
+    var datos = new FormData();
+    datos.append("idColor", idColorVehiculo);
+    $.ajax({
+        url: "ajax/colorAjax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (data){
+            console.log(data.nombre_color);
+            $("#id_Color").val(data["id_color"]);
+            $("#EditColor").val(data["nombre_color"]);
+        }
+    });
+});
+/*============================================
+                 DELETE COLOR VEHICLE
+===============================================*/
+$(".tablaColorVehicle").on("click", ".btnDeleteColorVehicle", function (){
+    var idColorVehiculo = $(this).attr("idColorVehicle");
+    swal({
+        title: "Esta seguro que lo desea borrar?",
+        text: "Si no está seguro puede cancelar la acción",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Cancelar",
+                value: null,
+                visible: true,
+                className: "",
+                closeModal: true,
+            },
+            confirm: {
+                text: "Eliminar",
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: true
+            }
+        },
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location = "index.php?url=vehiculos&idColor="+idColorVehiculo;
+            } else {
+                swal("Cancelaste la acción!");
+            }
+        });
+});
+
+/*============================================
+                 EDIT MODEL VEHICLE
+===============================================*/
+$(".tablaModelVehicle").on("click", ".btnEditModelVehicle", function (){
+    var idModeloVehiculo = $(this).attr("idModelVehicle");
+    console.log("idModeloVehiculo", idModeloVehiculo);
+    var datos = new FormData();
+    datos.append("idModeloVehiculo", idModeloVehiculo);
+    $.ajax({
+        url: "ajax/vehiculosAjax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (data){
+            $("#id_ModeloVehiculo").val(data["id_modelo"]);
+            $("#EditModeloVehicle").val(data["nombre_modelo"]);
+        }
+    });
+});
+/*============================================
+                 DELETE MODEL VEHICLE
+===============================================*/
+$(".tablaModelVehicle").on("click", ".btnDeleteModelVehicle", function (){
+    var idModeloVehiculo = $(this).attr("idModelVehicle");
+    swal({
+        title: "Esta seguro que lo desea borrar?",
+        text: "Si no está seguro puede cancelar la acción",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Cancelar",
+                value: null,
+                visible: true,
+                className: "",
+                closeModal: true,
+            },
+            confirm: {
+                text: "Eliminar",
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: true
+            }
+        },
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location = "index.php?url=vehiculos&idModeloVehiculo="+idModeloVehiculo;
+            } else {
+                swal("Cancelaste la acción!");
+            }
+        });
+});

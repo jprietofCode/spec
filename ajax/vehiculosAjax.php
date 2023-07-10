@@ -37,8 +37,6 @@ class AjaxVehiculos{
         $respuesta = vehiculosC::ctrMostrarModeloVehiculo($item, $valor);
         echo json_encode($respuesta);
     }
-
-
 }
 
 if(isset($_POST["idVehiculo"])){
