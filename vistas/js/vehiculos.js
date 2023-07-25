@@ -4,7 +4,7 @@
 
 $(".tablaVehiculos").on("click", ".btnEditarVehiculo", function (){
     var idVehiculo = $(this).attr("idVehiculo");
-    console.log("id_vehiculo", idVehiculo);
+   // console.log("id_vehiculo", idVehiculo);
 
     var datos = new FormData();
     datos.append("idVehiculo", idVehiculo);
@@ -18,7 +18,7 @@ $(".tablaVehiculos").on("click", ".btnEditarVehiculo", function (){
         processData: false,
         dataType: "json",
         success: function (data){
-            console.log("respuesta:", data);
+            //console.log("respuesta:", data);
             //console.log(data.id_vehiculo); // Acceder al valor del campo 'id_vehiculo'
             //console.log(data.placa);
             //console.log(data.tipo_vehiculo_id);
@@ -37,7 +37,7 @@ $(".tablaVehiculos").on("click", ".btnEditarVehiculo", function (){
                 processData: false,
                 dataType: "json",
                 success: function (respuesta){
-                    console.log("respuesta", respuesta);
+                    //console.log("respuesta", respuesta);
                     $("#edit_tipoVehiculo").val(respuesta["id_tipo_vehiculo"]);
                     $("#edit_tipoVehiculo").html(respuesta["nombre_tipo_vehiculo"]);
 
@@ -89,7 +89,7 @@ $(".tablaVehiculos").on("click", ".btnEditarVehiculo", function (){
                 processData: false,
                 dataType: "json",
                 success: function (respuesta){
-                    console.log("respuestaColor", respuesta);
+                    //console.log("respuestaColor", respuesta);
                     $("#edit_colorVehiculo").val(respuesta["id_color"]);
                     $("#edit_colorVehiculo").html(respuesta["nombre_color"]);
 
@@ -110,7 +110,7 @@ ELIMINAR VEHICULO
 ------------------------*/
 $(".tablaVehiculos").on("click", ".btnEliminarVehiculo", function (){
     var idVehiculo = $(this).attr("idVehiculo");
-    console.log("idVehiculo", idVehiculo);
+    //console.log("idVehiculo", idVehiculo);
     swal({
         title: "Esta seguro de borrar el producto?",
         text: "Si no está seguro puede cancelar la acción",
@@ -147,7 +147,7 @@ $(".tablaVehiculos").on("click", ".btnEliminarVehiculo", function (){
 ===============================================*/
 $(".tablaTipoVehicle").on("click", ".btnEditTypeVehicle", function (){
     var idTipoVehiculo = $(this).attr("idTypeVehicle");
-    console.log("idTipoVehiculo", idTipoVehiculo);
+    //console.log("idTipoVehiculo", idTipoVehiculo);
     var datos = new FormData();
     datos.append("idTipoVehiculo", idTipoVehiculo);
     $.ajax({
@@ -205,7 +205,7 @@ $(".tablaTipoVehicle").on("click", ".btnDeleteTypeVehicle", function (){
 ===============================================*/
 $(".tablaMarcaVehicle").on("click", ".btnEditMarcaVehicle", function (){
     var idMarcaVehiculo = $(this).attr("idMarcaVehicle");
-    console.log("idMarcaVehiculo", idMarcaVehiculo);
+    //console.log("idMarcaVehiculo", idMarcaVehiculo);
     var datos = new FormData();
     datos.append("idMarcaVehiculo", idMarcaVehiculo);
     $.ajax({
@@ -217,7 +217,7 @@ $(".tablaMarcaVehicle").on("click", ".btnEditMarcaVehicle", function (){
         processData: false,
         dataType: "json",
         success: function (data){
-            console.log(data.nombre_marca);
+            //console.log(data.nombre_marca);
             $("#id_MarcaVehiculo").val(data["id_marca_vehiculo"]);
             $("#EditMarcaVehiculo").val(data["nombre_marca"]);
         }
@@ -264,7 +264,7 @@ $(".tablaMarcaVehicle").on("click", ".btnDeleteMarcaVehicle", function (){
 ===============================================*/
 $(".tablaColorVehicle").on("click", ".btnEditColorVehicle", function (){
     var idColorVehiculo = $(this).attr("idColorVehicle");
-    console.log("idColorVehiculo", idColorVehiculo);
+    //console.log("idColorVehiculo", idColorVehiculo);
     var datos = new FormData();
     datos.append("idColor", idColorVehiculo);
     $.ajax({
@@ -276,7 +276,7 @@ $(".tablaColorVehicle").on("click", ".btnEditColorVehicle", function (){
         processData: false,
         dataType: "json",
         success: function (data){
-            console.log(data.nombre_color);
+            //console.log(data.nombre_color);
             $("#id_Color").val(data["id_color"]);
             $("#EditColor").val(data["nombre_color"]);
         }
@@ -323,7 +323,7 @@ $(".tablaColorVehicle").on("click", ".btnDeleteColorVehicle", function (){
 ===============================================*/
 $(".tablaModelVehicle").on("click", ".btnEditModelVehicle", function (){
     var idModeloVehiculo = $(this).attr("idModelVehicle");
-    console.log("idModeloVehiculo", idModeloVehiculo);
+    //console.log("idModeloVehiculo", idModeloVehiculo);
     var datos = new FormData();
     datos.append("idModeloVehiculo", idModeloVehiculo);
     $.ajax({

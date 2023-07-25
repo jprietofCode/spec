@@ -23,6 +23,10 @@
                 </div>
                 <!-- /.col -->
             </div>
+            <?php
+                $login = new UsuariosC();
+                $login -> ctrIngresoUsuario();
+            ?>
         </form>
     </div>
     <!-- /.login-box-body -->

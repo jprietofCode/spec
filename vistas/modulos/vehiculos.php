@@ -23,7 +23,7 @@
             if (!in_array($tabActiva, $pestanasPermitidas)) {
                 $tabActiva = 'vehiculos'; // Establecer "vehiculos" como valor por defecto si "tab" no es válido
             }
-            var_dump($tabActiva);
+            //var_dump($tabActiva);
             // Función para aplicar la clase "active" a la pestaña actual
             function pestanaActiva($pestaña, $tabActiva)
             {
@@ -440,16 +440,16 @@ MODAL WINDOWS - VEHICLE
                         </div>
                         <!-- plaque -->
                         <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                            <div class="input-group-lg">
+                                <label for="edit_plca">Placa de Vehículo</label>
                                 <input type="text" class="form-control input-lg" name="edit_placa" id="edit_placa" required>
                             </div>
                         </div>
                         <!-- vehicle type-->
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-truck"></i></span>
-                                <select class="form-control input-lg" name="edit_tipoVehiculo" id="" required>
+                        <div class="form-group-lg">
+                            <div class="input-group-lg">
+                                <label for="tipoV">Tipo de Vehículo</label>
+                                <select class="form-control input-lg" name="edit_tipoVehiculo" id="tipoV" required>
                                     <option id="edit_tipoVehiculo" selected></option>
                                     <?php
                                     $item = null;
@@ -464,36 +464,59 @@ MODAL WINDOWS - VEHICLE
                         </div>
                         <!-- vehicle brand-->
                         <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
-                                <select class="form-control input-lg" name="edit_marcaVehiculo" id="">
+                            <div class="input-group-lg">
+                                <label for="marcaV">Marca de Vehículo</label>
+                                <select class="form-control input-lg" name="edit_marcaVehiculo" id="marcaV">
                                     <option id="edit_marcaVehiculo"></option>
+                                    <?php
+                                    $item = null;
+                                    $valor = null;
+                                    $marcasVehiculo = vehiculosC::ctrMostrarMarcaVehiculo($item, $valor);
+                                    foreach ($marcasVehiculo as $key => $value) {
+                                        echo '<option value="'.$value["id_marca_vehiculo"].'">'.$value["nombre_marca"].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
                         <!-- vehicle model-->
                         <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
-                                <select class="form-control input-lg" name="edit_modeloVehiculo" id="">
+                            <div class="input-group-lg">
+                                <label for="modeloV">Modelo de Vehículo</label>
+                                <select class="form-control input-lg" name="edit_modeloVehiculo" id="modeloV">
                                     <option id="edit_modeloVehiculo">Seleccionar modelo de vehículo</option>
+                                    <?php
+                                    $item = null;
+                                    $valor = null;
+                                    $modelosVehiculo = vehiculosC::ctrMostrarModeloVehiculo($item, $valor);
+                                    foreach ($modelosVehiculo as $key => $value) {
+                                        echo '<option value="'.$value["id_modelo"].'">'.$value["nombre_modelo"].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
                         <!-- vehicle color-->
                         <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
-                                <select class="form-control input-lg" name="edit_colorVehiculo" id="">
+                            <div class="input-group-lg">
+                                <label for="colorV">Color de Vehículo</label>
+                                <select class="form-control input-lg" name="edit_colorVehiculo" id="colorV">
                                     <option id="edit_colorVehiculo">Seleccionar color de vehículo</option>
+                                    <?php
+                                    $item = null;
+                                    $valor = null;
+                                    $coloresVehiculo = colorC::ctrMostarColor($item, $valor);
+                                    foreach ($coloresVehiculo as $key => $value) {
+                                        echo '<option value="'.$value["id_color"].'">'.$value["nombre_color"].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
                         <!-- vehicle year -->
                         <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-car"></i></span>
-                                <label for="edit_yearVehiculo">Año</label>
+                            <div class="input-group-lg">
+                                <label for="edit_yearVehiculo">Año del vehículo</label>
                                 <input type="text" class="form-control input-lg" id="edit_yearVehiculo" name="edit_yearVehiculo" required>
                             </div>
                         </div>

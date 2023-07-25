@@ -61,7 +61,7 @@
                                 <a href="http://localhost/learnphp/gestionU/mis-datos" class="btn btn-primary btn-flat">Mis Datos</a>
                             </div>
                             <div class="pull-right">
-                                <a href="http://localhost/learnphp/gestionU/salir" class="btn btn-danger btn-flat">Salir</a>
+                                <a href="salir" class="btn btn-danger btn-flat">Salir</a>
                             </div>
                         </li>
                     </ul>

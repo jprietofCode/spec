@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,47 +58,52 @@
 <!--=====================================
  CONTENT
 ======================================-->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini login-page">
 <!-- Site wrapper -->
-<div class="wrapper">
     <!-- header -->
     <?php
-    /*
-     * Header
-     * */
-    include "modulos/cabezote.php";
-    /*
-     * menu Left side column.
-     * */
-    include "modulos/menu.php";
-    /*
-     * Content
-     * */
-    if(isset($_GET["url"])){
-        if($_GET["url"] == "inicio" ||
-            $_GET["url"] == "usuarios" ||
-            $_GET["url"] == "personas" ||
-            $_GET["url"] == "vehiculos" ||
-            $_GET["url"] == "herramientas" ||
-            $_GET["url"] == "acceso-persona" ||
-            $_GET["url"] == "acceso-vehiculo" ||
-            $_GET["url"] == "acceso-herramienta" ||
-            $_GET["url"] == "salidas" ||
-            $_GET["url"] == "reportes"){
-            include "modulos/".$_GET["url"].".php";
-        }else{
-            include "modulos/404.php";
+    if(isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
+        echo '<div class="wrapper">';
+        /*
+         * Header
+         * */
+        include "modulos/cabezote.php";
+        /*
+         * menu Left side column.
+         * */
+        include "modulos/menu.php";
+        /*
+         * Content
+         * */
+        if (isset($_GET["url"])) {
+            if ($_GET["url"] == "inicio" ||
+                $_GET["url"] == "usuarios" ||
+                $_GET["url"] == "personas" ||
+                $_GET["url"] == "vehiculos" ||
+                $_GET["url"] == "herramientas" ||
+                $_GET["url"] == "acceso-persona" ||
+                $_GET["url"] == "acceso-vehiculo" ||
+                $_GET["url"] == "acceso-herramienta" ||
+                $_GET["url"] == "salidas" ||
+                $_GET["url"] == "reportes" ||
+                $_GET["url"] == "salir") {
+                include "modulos/" . $_GET["url"] . ".php";
+            } else {
+                include "modulos/404.php";
+            }
+        } else {
+            include "modulos/inicio.php";
         }
+        /*
+         * Footer
+         * */
+        include "modulos/footer.php";
+        echo '</div>';
     }else{
-        include "modulos/inicio.php";
+        include "modulos/login.php";
     }
-    /*
-     * Footer
-     * */
-    include "modulos/footer.php";
     ?>
 
-</div>
 
 <!-- ./wrapper -->
 
