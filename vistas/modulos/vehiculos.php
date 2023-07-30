@@ -1,4 +1,18 @@
 
+<?php
+
+if($_SESSION["rol"] != "Administrador"){
+
+    echo '<script>
+
+	window.locations = "inicio";
+	</script>';
+
+    return;
+
+}
+
+?>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>

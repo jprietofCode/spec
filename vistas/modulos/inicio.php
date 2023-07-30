@@ -27,7 +27,9 @@
                 </div>
             </div>
             <div class="box-body">
-                El Proyecto actual esta en construcción, el <strong>modulo en funcionamiento es vehículos</strong>, que contiene el CRUD
+                <p>- El proyecto se encuentra en construcción y todas la funcionalidades no están funcionando.</p>
+                <p>- Por el momento el <strong>modulo vehículos está en funcionamiento y por el momento el modulo usuarios solo se puede visualizar los usuarios</strong></p>
+                <p>- Lo anterior es visualizado si eres administrador, si ingresas con el perfil guardia no se mostraran</p>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

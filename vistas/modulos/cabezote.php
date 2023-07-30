@@ -19,9 +19,8 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        <span class="hidden-xs">usuario</span>
-
                         <?php
+                        echo '<span class="hidden-xs">'.$_SESSION["rol"].'</span>';
                         /*
                         echo '<span class="hidden-xs">'.$_SESSION["apellido"]." ".$_SESSION["nombre"].'</span>';*/
                         ?>

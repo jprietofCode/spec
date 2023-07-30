@@ -5,8 +5,8 @@
             <small>Panel de control</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-            <li class="active">Tablero</li>
+            <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li class="active">Usuarios</li>
         </ol>
     </section>
 
@@ -16,18 +16,57 @@
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Title</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                            title="Collapse">
-                        <i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                        <i class="fa fa-times"></i></button>
-                </div>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">Agregar Usuario</button>
             </div>
             <div class="box-body">
-                Start creating your amazing application!
+                <table class="table table-bordered table-striped dt-responsive tablas tablaUsuarios">
+                    <thead>
+                    <tr>
+                        <th class="idSize">#</th>
+                        <th class="sizeV">Usuario</th>
+                        <th class="sizeV">Contraseña</th>
+                        <th class="sizeV">Estado</th>
+                        <th class="sizeV">Perfil</th>
+                        <th class="sizeV">Persona</th>
+                        <th class="sizeV">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $item = null;
+                    $valor = null;
+                    $usuarios = UsuariosC::ctrMostrarUsuarios($item, $valor);
+
+                    foreach ($usuarios as $key => $value){
+                        echo '<tr>
+                                        <td>'.($key+1).'</td>
+                                        <td>'.$value['nombre_usuario'].'</td>
+                                        <td>'.$value['contrasena'].'</td>';
+                        if($value["estado"] != 0){
+                            echo '<td><button class="btn btn-success btn-xs">Activo</button></td>';
+                        }else{
+                            echo '<td><button class="btn btn-danger btn-xs">Desactivado</button></td>';
+                        }
+                        $item = "id_perfil";
+                        $valor = $value["perfil_id"];
+                        $tipoPerfil = UsuariosC::ctrMostrarPerfiles($item, $valor);
+                        echo '<td>'.$tipoPerfil["nombre_perfil"].'</td>';
+                        $item = "id_personas";
+                        $valor = $value["persona_id"];
+                        $persona = PersonasC::ctrMostrarPersonas($item, $valor);
+                        echo '<td>'.$persona["numero_id"].'</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning btnEditarVehiculo" idUsuario="'.$value["id_usuario"].'" data-toggle="modal" data-target="#EditarVehiculo"><i class="fa fa-pencil"></i></button>
+                                            
+                                            <button class="btn btn-danger btnEliminarVehiculo" idUsuario="'.$value["id_usuario"].'"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                    </tr>';
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

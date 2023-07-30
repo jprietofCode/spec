@@ -71,7 +71,13 @@ session_start();
         /*
          * menu Left side column.
          * */
-        include "modulos/menu.php";
+        if($_SESSION['rol']=="Administrador"){
+            include "modulos/menu.php";
+        }
+        if($_SESSION['rol']=="Guardia"){
+            include "modulos/menuGuardia.php";
+        }
+
         /*
          * Content
          * */
