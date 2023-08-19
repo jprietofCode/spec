@@ -260,65 +260,6 @@ $(".tablaMarcaVehicle").on("click", ".btnDeleteMarcaVehicle", function (){
 });
 
 /*============================================
-                 EDIT COLOR VEHICLE
-===============================================*/
-$(".tablaColorVehicle").on("click", ".btnEditColorVehicle", function (){
-    var idColorVehiculo = $(this).attr("idColorVehicle");
-    //console.log("idColorVehiculo", idColorVehiculo);
-    var datos = new FormData();
-    datos.append("idColor", idColorVehiculo);
-    $.ajax({
-        url: "ajax/colorAjax.php",
-        method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success: function (data){
-            //console.log(data.nombre_color);
-            $("#id_Color").val(data["id_color"]);
-            $("#EditColor").val(data["nombre_color"]);
-        }
-    });
-});
-/*============================================
-                 DELETE COLOR VEHICLE
-===============================================*/
-$(".tablaColorVehicle").on("click", ".btnDeleteColorVehicle", function (){
-    var idColorVehiculo = $(this).attr("idColorVehicle");
-    swal({
-        title: "Esta seguro que lo desea borrar?",
-        text: "Si no está seguro puede cancelar la acción",
-        icon: "warning",
-        buttons: {
-            cancel: {
-                text: "Cancelar",
-                value: null,
-                visible: true,
-                className: "",
-                closeModal: true,
-            },
-            confirm: {
-                text: "Eliminar",
-                value: true,
-                visible: true,
-                className: "",
-                closeModal: true
-            }
-        },
-        dangerMode: true,
-    })
-        .then((willDelete) => {
-            if (willDelete) {
-                window.location = "index.php?url=vehiculos&idColor="+idColorVehiculo;
-            } else {
-                swal("Cancelaste la acción!");
-            }
-        });
-});
-
-/*============================================
                  EDIT MODEL VEHICLE
 ===============================================*/
 $(".tablaModelVehicle").on("click", ".btnEditModelVehicle", function (){

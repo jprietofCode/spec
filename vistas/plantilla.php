@@ -85,8 +85,11 @@ session_start();
             if ($_GET["url"] == "inicio" ||
                 $_GET["url"] == "usuarios" ||
                 $_GET["url"] == "personas" ||
+                $_GET["url"] == "empresas" ||
                 $_GET["url"] == "vehiculos" ||
                 $_GET["url"] == "herramientas" ||
+                $_GET["url"] == "colores" ||
+                $_GET["url"] == "destinos" ||
                 $_GET["url"] == "acceso-persona" ||
                 $_GET["url"] == "acceso-vehiculo" ||
                 $_GET["url"] == "acceso-herramienta" ||
@@ -115,5 +118,11 @@ session_start();
 
 <script src="vistas/js/plantilla.js"></script>
 <script src="vistas/js/vehiculos.js"></script>
+<script src="vistas/js/usuarios.js"></script>
+<script src="vistas/js/personas.js"></script>
+<script src="vistas/js/empresas.js"></script>
+<script src="vistas/js/colores.js"></script>
+<script src="vistas/js/destinos.js"></script>
+<script src="vistas/js/herramientas.js"></script>
 </body>
 </html>

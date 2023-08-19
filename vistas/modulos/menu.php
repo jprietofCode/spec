@@ -24,6 +24,12 @@
                     <span>Personas</span>
                 </a>
             </li>
+            <li>
+                <a href="empresas">
+                    <i class="fa fa-building" aria-hidden="true"></i>
+                    <span>Empresas</span>
+                </a>
+            </li>
 
             <li>
                 <a href="vehiculos">
@@ -36,6 +42,18 @@
                 <a href="herramientas">
                     <i class="fa fa-wrench" aria-hidden="true"></i>
                     <span>Herramientas</span>
+                </a>
+            </li>
+            <li>
+                <a href="colores">
+                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    <span>Colores</span>
+                </a>
+            </li>
+            <li>
+                <a href="destinos">
+                    <i class="fa fa-map-signs" aria-hidden="true"></i>
+                    <span>Destinos</span>
                 </a>
             </li>
 

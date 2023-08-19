@@ -33,7 +33,7 @@ if($_SESSION["rol"] != "Administrador"){
             $tabActiva = isset($_GET['tab']) ? $_GET['tab'] : 'vehiculos';
 
             // Validar que el valor de "tab" sea uno de los permitidos
-            $pestanasPermitidas = array('vehiculos', 'tipo-vehiculo', 'marcas', 'colores', 'modelos');
+            $pestanasPermitidas = array('vehiculos', 'tipo-vehiculo', 'marcas', 'modelos');
             if (!in_array($tabActiva, $pestanasPermitidas)) {
                 $tabActiva = 'vehiculos'; // Establecer "vehiculos" como valor por defecto si "tab" no es válido
             }
@@ -54,7 +54,6 @@ if($_SESSION["rol"] != "Administrador"){
                     <li class="<?php echo pestanaActiva('vehiculos', $tabActiva); ?>"><a href="#vehiculos" data-toggle="tab">Vehículos</a></li>
                     <li class="<?php echo pestanaActiva('tipo-vehiculo', $tabActiva); ?>"><a href="#tipo-vehiculo" data-toggle="tab">Tipo de vehículo</a></li>
                     <li class="<?php echo pestanaActiva('marcas', $tabActiva); ?>"><a href="#marcas" data-toggle="tab">Marcas</a></li>
-                    <li class="<?php echo pestanaActiva('colores', $tabActiva); ?>"><a href="#colores" data-toggle="tab">Colores</a></li>
                     <li class="<?php echo pestanaActiva('modelos', $tabActiva); ?>"><a href="#modelos" data-toggle="tab">Modelos</a></li>
                     <!-- Otras pestañas para las tablas relacionadas -->
                 </ul>
@@ -215,48 +214,7 @@ if($_SESSION["rol"] != "Administrador"){
                             </tbody>
                         </table>
                     </div>
-                    <div class="tab-pane <?php echo pestanaActiva('colores', $tabActiva); ?>" id="colores">
-                        <!-- Contenido de la tabla de colores -->
-                        <form method="post" class="form-inline">
-                            <div class="form-group">
-                                <input type="text" name="newColor" class="form-control" placeholder="Nuevo color de vehículo" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Crear Color</button>
-                        </form>
-                        <?php
-                        $crearColorVehiculo = new colorC();
-                        $crearColorVehiculo -> ctrCrearColor();
-                        ?>
-                        <br>
-                        <table class="table table-bordered table-striped dt-responsive tablas tablaColorVehicle">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nombre</th>
-                                <th>Acciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $item = null;
-                            $valor = null;
-                            $coloresVehiculo = colorC::ctrMostarColor($item, $valor);
-                            foreach ($coloresVehiculo as $key => $value){
-                                echo '<tr>
-                                    <td>'.($key+1).'</td>
-                                    <td>'.$value['nombre_color'].'</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-warning btnEditColorVehicle" idColorVehicle="'.$value["id_color"].'" data-toggle="modal" data-target="#EditColorVehicle"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-danger btnDeleteColorVehicle" idColorVehicle="'.$value["id_color"].'"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>';
-                            }
-                            ?>
-                            </tbody>
-                        </table>
-                    </div>
+                    <!-- Modelo -->
                     <div class="tab-pane <?php echo pestanaActiva('modelos', $tabActiva); ?>" id="modelos">
                         <!-- Contenido de la tabla de modelos -->
                         <form method="post" class="form-inline">
@@ -665,61 +623,7 @@ $eliminarMarcaVehiculo -> ctrEliminarMarcaVehiculo();
 ?>
 
 <!--============================================
-                4 EDIT COLOR VEHICLE
-===============================================-->
-<div id="EditColorVehicle" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form role="form" method="post">
-                <!--=====================================
-                               MODAL HEADER
-                 ======================================-->
-                <div class="modal-header bg-head-modal">
-                    <button class="close" type="button" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Editar Color Vehículo</h4>
-                </div>
-                <!--=====================================
-                               MODAL BODY
-                 ======================================-->
-                <div class="modal-body">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="hidden" class="form-control input-lg" name="id_Color" id="id_Color">
-                            </div>
-                        </div>
-                        <!-- Color Vehicle -->
-                        <div class="form-group">
-                            <div class="input-group-lg">
-                                <label for="EditColor">Color de Vehículo</label>
-                                <input type="text" name="EditColor" id="EditColor" class="form-control" placeholder="Color de vehículo" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--=====================================
-                               MODAL FOOTER
-                 ======================================-->
-                <div class="modal-footer">
-                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Salir</button>
-                    <button class="btn btn-primary" type="submit">Guardar</button>
-                </div>
-            </form>
-            <?php
-
-            $editarColorVehiculo = new colorC();
-            $editarColorVehiculo -> ctrEditarColor();
-            ?>
-        </div>
-    </div>
-</div>
-<?php
-$eliminarColorVehiculo = new colorC();
-$eliminarColorVehiculo -> ctrEliminarColor();
-?>
-
-<!--============================================
-              5   EDIT MODEL VEHICLE
+              4   EDIT MODEL VEHICLE
 ===============================================-->
 <div id="EditModelVehicle" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
